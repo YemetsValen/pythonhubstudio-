@@ -3,7 +3,7 @@ from django.db import models
 
 class Categories(models.Model):
     name = models.CharField(max_length=150, unique=True, verbose_name="имя")
-    slag = models.SlugField(
+    slug = models.SlugField(
         max_length=200, blank=True, unique=True, null=True, verbose_name="URL"
     )
 
@@ -18,7 +18,7 @@ class Categories(models.Model):
 
 class Products(models.Model):
     name = models.CharField(max_length=150, unique=True, verbose_name="Название")
-    slag = models.SlugField(
+    slug = models.SlugField(
         max_length=200, blank=True, unique=True, null=True, verbose_name="URL"
     )
     description = models.TextField(blank=True, null=True, verbose_name="описание")
@@ -47,5 +47,5 @@ class Products(models.Model):
     
     def sell_price(self):
         if self.discount:
-            return round(self.price - self.price*self.discount/10, 2)
+            return round(self.price * (1 - self.discount / 100), 2)
         return self.price
